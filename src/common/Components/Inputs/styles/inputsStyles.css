@@ -1,0 +1,41 @@
+.base-textarea {
+   @apply w-full py-1.5 outline-none flex rounded-md border border-gray-300 px-3 font-semibold text-base
+}
+
+.base-input {
+   @apply h-10 outline-none flex rounded-md border border-gray-300 px-3 font-semibold text-base
+}
+
+.base-input.pl {
+   @apply pl-6
+}
+
+.base-input-sm {
+   @apply h-8 outline-none flex rounded-md border border-gray-300 px-3 font-semibold text-base
+}
+
+.input-valid {
+   @apply duration-150 hover:border-blue-400 focus:border-blue-400 focus:ring-1 focus:ring-blue-200;
+   transition-property: border, outline;
+
+}
+
+.input-invalid {
+   @apply duration-150 border-red-500 ring-1 ring-red-300;
+   transition-property: border, outline;
+}
+
+.price-input {
+   @apply h-10 outline-none flex rounded-md border border-gray-300 pl-4 font-semibold text-base pt-2.5
+}
+
+.options-scroll {
+   @apply absolute z-20 w-full bg-white border border-gray-300 rounded-md shadow-lg top-full min-h-8 max-h-40 translate-y-1 flex overflow-y-scroll
+}
+
+/* Chrome, Safari, Edge, Opera */
+input.base-input::-webkit-outer-spin-button,
+input.base-input::-webkit-inner-spin-button {
+   -webkit-appearance: none;
+   margin: 0;
+}

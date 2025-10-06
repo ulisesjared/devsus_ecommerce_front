@@ -1,0 +1,11 @@
+.tabs-container {
+    @apply flex items-center bg-white rounded-t-md p-2 gap-2
+}
+
+.tab {
+    @apply py-1 w-full sm:w-auto sm:px-3 font-medium text-sm text-gray-400 hover:bg-gray-100 rounded-md
+}
+
+.tab.active {
+    @apply bg-white rounded-t-md text-blue-500 bg-blue-100/50
+}

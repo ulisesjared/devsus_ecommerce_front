@@ -1,68 +1,347 @@
-:root {
-  font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
-  line-height: 1.5;
-  font-weight: 400;
-
-  color-scheme: light dark;
-  color: rgba(255, 255, 255, 0.87);
-  background-color: #242424;
-
-  font-synthesis: none;
-  text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
-
-a {
-  font-weight: 500;
-  color: #646cff;
-  text-decoration: inherit;
-}
-a:hover {
-  color: #535bf2;
-}
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
 body {
-  margin: 0;
+  @apply overflow-hidden
+}
+
+#root {
+  @apply flex flex-row w-screen h-screen overflow-hidden;
+  background-color: #e2e8f0;
+  /* background-image: linear-gradient(32deg, #e2e8f0 0%, #e0f2fe 50%, #fce7f3 100%); */
+  background-image: radial-gradient(circle, #fff6fc, #faf4fe, #f3f3ff, #eaf2ff, #e0f2fe);
+}
+
+.root-background {
+  background-color: #e2e8f0;
+  background-image: linear-gradient(32deg, #e2e8f0 0%, #e0f2fe 50%, #fce7f3 100%);
+}
+
+.total-center {
   display: flex;
-  place-items: center;
-  min-width: 320px;
-  min-height: 100vh;
+  justify-content: center;
+  align-items: center;
+}
+
+.customTable {
+  table-layout: auto;
+  /*box-shadow: 0px 0px 10px -1px rgba(0,0,0,0.75);*/
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.customTable td {
+  white-space: nowrap;
+  color: #374151;
+}
+
+.customTable th {
+  background-color: #ffffff;
+  font-weight: 500;
+  color: #0f766e;
+  cursor: default;
+  white-space: nowrap;
+  font-size: 0.875rem
+    /* 14px */
+  ;
+  line-height: 1.25rem
+    /* 20px */
+  ;
+  border-block: 1px solid #e2e8f0;
+}
+
+.customTable th .filter-button {
+  opacity: 0%;
+  transition: 0.2s;
+}
+
+.customTable th:hover .filter-button {
+  opacity: 100%;
+  transition: 0.2s;
+}
+
+.customTable tbody tr {
+
+  color: #334155;
+  font-size: medium;
+  transition: 0.4s;
+  border-collapse: collapse;
+  border-bottom: 1px solid #e2e8f0;
+}
+
+.customTable.clic-row tbody tr:hover {
+  cursor: pointer;
+  background-color: #f1f5f9;
+  transition: 0.2s;
+}
+
+.customTable thead th {
+  position: sticky;
+  top: 0;
+  z-index: 1;
+}
+
+.fancy-scroll::-webkit-scrollbar {
+  @apply w-2 h-2;
+}
+
+.fancy-scroll::-webkit-scrollbar-track {
+  @apply bg-transparent;
+}
+
+.fancy-scroll::-webkit-scrollbar-track:hover {
+  @apply bg-gray-200/70;
+}
+
+.fancy-scroll::-webkit-scrollbar-thumb {
+  @apply rounded-full bg-slate-300;
+}
+
+.fancy-scroll::-webkit-scrollbar-thumb:hover {
+  @apply bg-slate-400
+}
+
+.tool-tip {
+  position: relative;
+}
+
+.tool-tip::after {
+  content: attr(data-tooltip);
+  position: absolute;
+  top: 105%;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: #262626;
+  color: white;
+  padding: 0.5rem;
+  border-radius: 0.2rem;
+  font-size: 0.8rem;
+  z-index: 100;
+  display: none;
+  white-space: nowrap;
+  font-weight: 500;
+  pointer-events: none;
+}
+
+.tool-tip.top::after {
+  top: 0%;
+  left: 50%;
+  transform: translateX(-50%) translateY(-100%);
+}
+
+.tool-tip:hover::after {
+  display: block;
+}
+
+.appear {
+  animation: appear 200ms ease-out forwards;
+  opacity: 0;
+}
+
+.appear-delay {
+  animation-delay: 200ms;
+}
+
+@keyframes appear {
+  0% {
+    opacity: 0%;
+    display: none;
+  }
+
+  100% {
+    opacity: 100%;
+    display: block;
+  }
+}
+
+.padding-x {
+  @apply px-4 sm:px-16 md:px-32 lg:px-52
+}
+
+.padding-x-2 {
+  @apply px-2 sm:px-4 md:px-16 lg:px-28
+}
+
+.padding-x-3 {
+  @apply px-1 sm:px-2 md:px-8 lg:px-16
 }
 
 h1 {
-  font-size: 3.2em;
-  line-height: 1.1;
+  @apply text-base font-normal
 }
 
-button {
-  border-radius: 8px;
-  border: 1px solid transparent;
-  padding: 0.6em 1.2em;
-  font-size: 1em;
-  font-weight: 500;
-  font-family: inherit;
-  background-color: #1a1a1a;
+h2 {
+  @apply text-lg font-normal
+}
+
+h3 {
+  @apply text-xl font-normal
+}
+
+h4 {
+  @apply text-2xl font-normal
+}
+
+h5 {
+  @apply text-3xl font-normal
+}
+
+.page-container {
+  @apply flex flex-col flex-1 gap-2 p-2
+}
+
+/* Backgrounds que se usan en todas las vistas */
+.bg-relative {
+  @apply relative flex overflow-y-scroll bg-white rounded-md shadow-md size-full fancy-scroll
+}
+
+/* Grid que se usa en la mayoria de los componentes */
+.gral-grid {
+  @apply grid gap-x-3 gap-y-5 items-center w-full padding-x py-4;
+  grid-template-columns: 35% 65%;
+}
+
+/* Grid que se usa en pantallas donde se ponen horizontal 2 componentes se usa en conjunto con partial-grid*/
+.partial-absolute-grid {
+  @apply absolute py-4 w-full grid grid-cols-1
+}
+
+@media (min-width: 1024px) {
+  .lg {
+    grid-template-columns: 40% 60%;
+  }
+}
+
+.partial-grid {
+  @apply grid gap-x-3 gap-y-5 items-center lg:px-8 padding-x lg:border-r border-gray-400;
+  grid-template-columns: 25% auto;
+}
+
+.partial-grid-2 {
+  @apply grid gap-x-3 gap-y-5 padding-x lg:px-8;
+  grid-template-columns: 25% auto;
+}
+
+.partial-second {
+  @apply grid gap-x-3 gap-y-5 padding-x lg:px-8;
+  grid-template-columns: 5% auto;
+}
+
+/* Se usa en los titulos de los grids */
+.titles {
+  @apply col-span-2 lg:px-28 md:px-24 sm:px-16 font-semibold
+}
+
+/* Contenido css anteriormente en buttonStyle.css */
+
+.total-center {
+  @apply flex items-center justify-center
+}
+
+.btn-action {
+  @apply bg-blue-500 shadow-sm text-white rounded-md font-semibold hover:bg-blue-600 disabled:text-gray-800 duration-200 transition-colors active:opacity-75 whitespace-nowrap disabled:bg-gray-100 disabled:opacity-40
+}
+
+.btn-circle {
+  @apply rounded-full;
+}
+
+.btn-action-border {
+  @apply border border-blue-500 rounded-md font-semibold text-blue-500 hover:bg-blue-500 hover:text-white duration-200 transition-colors active:opacity-75
+}
+
+.btn-primary {
+  @apply bg-white shadow-sm text-gray-800 rounded-md font-semibold hover:bg-slate-100 duration-200 transition-colors active:opacity-75 whitespace-nowrap disabled:bg-gray-100 disabled:opacity-40
+}
+
+
+.btn-danger {
+  @apply border border-red-600 rounded-md font-semibold text-red-600 hover:bg-red-600 hover:text-white duration-200 transition-colors active:opacity-75
+}
+
+.btn-disabled {
+  @apply bg-gray-200 text-gray-600 rounded-md
+}
+
+.scan-icon::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: 17%;
+  width: 80%;
+  height: 10%;
+  background: radial-gradient(circle, #e11d48 0%, #e11d474d 80%);
+  filter: blur(1.3px);
+  border-radius: 100%;
+  transform: translateX(-50%);
+  animation: scann-animation 1.2s ease-in-out infinite alternate;
+}
+
+
+@keyframes scann-animation {
+  0% {
+    top: 15%;
+  }
+
+  100% {
+    top: 75%;
+  }
+}
+
+input[type="checkbox"].switch {
+  position: relative;
+  width: 40px;
+  height: 20px;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  background-color: #d1d5db;
+  border-radius: 20px;
+  outline: none;
+  transition: background-color 0.3s;
   cursor: pointer;
-  transition: border-color 0.25s;
-}
-button:hover {
-  border-color: #646cff;
-}
-button:focus,
-button:focus-visible {
-  outline: 4px auto -webkit-focus-ring-color;
 }
 
-@media (prefers-color-scheme: light) {
-  :root {
-    color: #213547;
-    background-color: #ffffff;
-  }
-  a:hover {
-    color: #747bff;
-  }
-  button {
-    background-color: #f9f9f9;
-  }
+input[type="checkbox"].switch::before {
+  content: '';
+  position: absolute;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background-color: white;
+  top: 50%;
+  transform: translateY(-50%);
+  left: 2px;
+  transition: left 0.3s;
 }
+
+input[type="checkbox"].switch:checked {
+  background-color: #1453b8;
+}
+
+input[type="checkbox"].switch:checked::before {
+  left: 21px;
+}
+
+/* Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+input[type="number"] {
+  -moz-appearance: textfield;
+}
+
+.card {
+  @apply bg-white rounded-md shadow-sm px-4 py-3
+}
+
+.border-gray {
+  @apply border rounded-md border-slate-300
+}
+
+

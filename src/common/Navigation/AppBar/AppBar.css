@@ -1,0 +1,85 @@
+.app-bar-container {
+   @apply flex md:w-16 h-full relative
+}
+
+.app-bar-container {
+   @apply has-[.open]:w-48 transition-[width] duration-300 absolute sm:static z-40
+}
+
+.app-bar-slide {
+   @apply w-0 sm:w-16 absolute h-full bg-white top-0 left-0 transition-[width] duration-300 ease-in-out flex flex-col overflow-hidden z-40 shadow-md justify-between
+   /* Estas clases permiten abrir la appbar on hover */
+   /* hover:w-48 hover:delay-200 */
+}
+
+.app-bar-slide.open {
+   @apply w-48 flex-1 bg-white border-r border-slate-200
+}
+
+.app-bar-tabs-scroll {
+   @apply relative size-full flex flex-col overflow-y-scroll overflow-x-hidden border-y border-slate-200
+}
+
+.app-bar-tabs {
+   @apply flex flex-col absolute pl-4 pr-2 py-4 w-full gap-2
+}
+
+.app-bar-section {
+   @apply flex flex-col gap-1
+}
+
+.app-bar-tabs-scroll::-webkit-scrollbar {
+   @apply size-2
+}
+
+.app-bar-tabs-scroll::-webkit-scrollbar-track {
+   @apply bg-transparent
+}
+
+.app-bar-tabs-scroll::-webkit-scrollbar-track:hover {
+   @apply bg-gray-200/70;
+}
+
+.app-bar-tabs-scroll::-webkit-scrollbar-thumb {
+   @apply group-hover/appbar:bg-slate-300 rounded-full
+}
+
+.app-bar-tabs-scroll::-webkit-scrollbar-thumb:hover {
+   @apply bg-slate-400 group-hover/appbar:bg-slate-400
+}
+
+.app-bar-section-tab {
+   @apply group-has-[.open]/appbar:ml-3 transition-[margin] duration-300
+   /* Estas clases permiten abrir la appbar on hover */
+   /* group-hover/appbar:ml-3 group-hover/appbar:delay-200 */
+}
+
+.app-bar-tab {
+   @apply relative flex gap-2 rounded-full items-center text-sm font-semibold 
+}
+
+.app-bar-tab-active {
+   @apply bg-blue-100/80 text-blue-600
+}
+
+.app-bar-tab-inactive, .app-bar-tab-header {
+   @apply hover:bg-blue-100/40;
+}
+
+.app-bar-tab-icon {
+   @apply size-8 flex items-center justify-center relative
+}
+
+.app-bar-tab-label {
+   @apply absolute left-9
+}
+
+.app-bar-tab-text {
+   @apply opacity-0 whitespace-nowrap pointer-events-none transition-[opacity] duration-300 group-has-[.open]/appbar:opacity-100 group-has-[.open]/appbar:delay-150
+   /* Estas clases permiten abrir la appbar on hover */
+   /* group-hover/appbar:opacity-100 group-hover/appbar:delay-200 */
+}
+
+.app-bar-tab-add {
+   @apply absolute right-0 top-0 hidden z-40 size-8 items-center justify-center rounded-full hover:bg-slate-300 group-has-[.open]/appbar:flex;
+}
