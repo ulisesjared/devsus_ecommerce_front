@@ -15,6 +15,7 @@ const GridInputColor: React.FC<{
     disabled?: boolean,
     autoComplete?: string,
     onChangeComplete?:(color:ColorResult) => void
+    onChange?:(e:ColorResult)=>void
 
 }> = ({
     id,
@@ -40,6 +41,8 @@ const GridInputColor: React.FC<{
                             onChangeComplete={onChangeComplete}
                             color={value}
                             disableAlpha={true}
+                            presetColors={[]}
+
                             {...props}
                         />
                     </div>

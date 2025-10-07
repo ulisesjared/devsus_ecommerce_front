@@ -6,6 +6,7 @@ import type { Color } from "../../common/Interfaces/ColorInterface"
 import useColor from "./hooks/ColorProvider"
 import { INIT_VALUES, validationSchema } from "./common/constants"
 import GridInputColor from "../../common/Components/Inputs/GridInputColor"
+import type { ColorResult } from "react-color"
 //import useUsers from "../User/hooks/UsersProvider"
 //import { useMemo } from "react"
 
@@ -58,7 +59,8 @@ export const NewColor = () => {
                                     id="code_hex"
                                     value={formik.values.code_hex}
                                     error={formik.touched.name && formik.errors.name}
-                                    onChangeComplete={(e:any)=>formik.setFieldValue('code_hex',e.hex)}
+                                    //onChangeComplete={(e:any)=>formik.setFieldValue('code_hex',e.hex)}
+                                    onChange={(e:ColorResult)=>formik.setFieldValue('code_hex',e.hex)}
                                     {...defaultProps}
                                 />
                             </div>

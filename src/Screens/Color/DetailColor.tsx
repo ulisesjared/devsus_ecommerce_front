@@ -8,6 +8,7 @@ import useColor from "./hooks/ColorProvider"
 import { useParams } from "react-router-dom"
 import { INIT_VALUES, validationSchema } from "./common/constants"
 import GridInputColor from "../../common/Components/Inputs/GridInputColor"
+import type { ColorResult } from "react-color"
 
 
 export const DetailColor = () => {
@@ -64,9 +65,10 @@ export const DetailColor = () => {
                                 <GridInputColor
                                     label="Color"
                                     id="code_hex"
+                                    
                                     value={formik.values.code_hex}
                                     error={formik.touched.name && formik.errors.name}
-                                    onChangeComplete={(e:any)=>formik.setFieldValue('code_hex',e.hex)}
+                                    onChange={(e:ColorResult)=>formik.setFieldValue('code_hex',e.hex)}
                                     {...defaultProps}
                                 />
                                 <h2 className='pt-4 titles'>
