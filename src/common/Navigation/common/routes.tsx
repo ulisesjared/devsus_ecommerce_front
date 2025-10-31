@@ -32,15 +32,16 @@ import { DetailTag } from "../../../Screens/Tag/DetailTag"
 import {NewCategory} from "../../../Screens/Category/NewCategory"
 import {CategoryScreen} from "../../../Screens/Category/CategoryScreen"
 import {DetailCategory} from "../../../Screens/Category/DetailCategory"
-import {NewSize} from "../../../Screens/Size/NewSize"
-import {SizeScreen} from "../../../Screens/Size/SizeScreen"
-import {DetailSize} from "../../../Screens/Size/DetailSize"
 import {NewDiscount} from "../../../Screens/Discount/NewDiscount"
 import {DiscountScreen} from "../../../Screens/Discount/DiscountScreen"
 import {DetailDiscount} from "../../../Screens/Discount/DetailDiscount"
 import { ColorScreen } from "../../../Screens/Color/ColorScreen"
 import { DetailColor } from "../../../Screens/Color/DetailColor"
 import {NewColor} from "../../../Screens/Color/NewColor"
+import { ProductScreen } from "../../../Screens/Product/ProductScreen"
+import { NewProduct } from "../../../Screens/Product/NewProduct"
+import DetailProduct from "../../../Screens/Product/DetailProduct"
+import ProductVariants from "../../../Screens/Product/components/ProductVariants"
 
 export const routesByRole: Record<userRole, IRouteGroup> = {
     SuperUser: {
@@ -62,10 +63,7 @@ export const routesByRole: Record<userRole, IRouteGroup> = {
             {path: '/category/:id', element: < DetailCategory/> },
             {path: '/category', element: <CategoryScreen/> },
             {path: '/category/nuevo', element: <NewCategory/> },
-            
-            {path: '/size/:id', element: < DetailSize/> },
-            {path: '/size', element: <SizeScreen/> },
-            {path: '/size/nuevo', element: <NewSize/> },
+    
             
             {path: '/discount/:id', element: < DetailDiscount/> },
             {path: '/discount', element: <DiscountScreen/> },
@@ -74,6 +72,12 @@ export const routesByRole: Record<userRole, IRouteGroup> = {
             {path: '/color/:id', element: < DetailColor/> },
             {path: '/color', element: <ColorScreen/> },
             {path: '/color/nuevo', element: <NewColor/> },
+
+            {path: '/product', element: <ProductScreen/> },
+            {path: '/product/nuevo', element: <NewProduct/> },
+            {path: '/product/:id/:tab?', element: <DetailProduct/> },
+            // {path: '/product/:id/variants/:tab?', element: <DetailProduct/> },
+            
 
             /*{ path: '/clientes', element: <CustomersScreen /> },
             { path: '/clientes/nuevo', element: <NewCustomer /> },
@@ -86,7 +90,7 @@ export const routesByRole: Record<userRole, IRouteGroup> = {
             { path: '/repartidor', element: <DriverScreen /> },
             { path: '/repartidor/nuevo', element: <NewDriver /> },
             { path: '/repartidor/:id', element: <DetailDriver /> },
-
+            
 
             /*{ path: '/ruta', element: <RouteScreen /> },
             { path: '/ruta/nueva', element: <NewRoute /> },

@@ -7,7 +7,7 @@ import { useToast } from "./ToastProvider"
 import { useNavigate } from "react-router-dom"
 import { getErrorMessage } from "../Constants/functions"
 
-interface GenericProps {
+export interface GenericProps {
     module: string,
     listQueryKey?: string,
     retrieveQueryKey?: string,
@@ -47,6 +47,7 @@ const useGeneric = <T extends { id?: string }>({
         const res = await myAxios.get<T>(`/${apiUrl}/${objectId}/`);
         return res.data;
     };
+    
 
     const RetrieveQuery = useQuery({
         queryKey: [retrieveQueryKey, objectId],
@@ -107,12 +108,13 @@ const useGeneric = <T extends { id?: string }>({
         }
     })
 
-    const remove = async () => {
-        const res = await myAxios.delete(`/${apiUrl}/${objectId}/`)
+    const remove = async (id?:string) => {
+        const paramId = id || objectId
+        const res = await myAxios.delete(`/${apiUrl}/${paramId}/`)
         return res.data
     }
 
-    const DeleteMutator = useMutation<T, Error, void>({
+    const DeleteMutator = useMutation<T, Error, string | undefined>({
         mutationFn: remove,
         onSuccess: () => {
             RecordsQuery.refetch()

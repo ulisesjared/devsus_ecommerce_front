@@ -18,7 +18,6 @@ const ScreenTabs: React.FC<ScreenTabsProps> = ({ tabs, selected, basePath }) => 
 
    const navigate = useNavigate()
    const { tab = selected ?? tabs[0].value } = useParams()
-
    const component = tabs.find(t => t.value === tab)?.component
 
    return (

@@ -245,13 +245,13 @@ const SelectTable = <T extends { id: string }>({
                                  </td>
                                  {columns.map((column, j) => (
                                     <td key={j} className="">
-                                       <p className="flex items-center h-10 px-8 whitespace-nowrap">
+                                       <div className="flex items-center h-10 px-8 whitespace-nowrap">
                                           {column.Component ? (
                                              <column.Component data={row[column.atr]} />
                                           ) : (
                                              String(row[column.atr])
                                           )}
-                                       </p>
+                                       </div>
                                     </td>
                                  ))}
                               </tr>

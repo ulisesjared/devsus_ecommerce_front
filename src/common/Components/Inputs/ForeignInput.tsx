@@ -1,44 +1,53 @@
 import React, { useRef, useState } from 'react'
 import Loader from '../Loader/Loader'
-import type { MaterialCategory } from '../../Interfaces/MaterialCategory'
 import { Icons } from '../../Constants/Icons'
+import type { UseMutationResult } from '@tanstack/react-query'
 
-function formatOptsList(responseList: MaterialCategory[]) {
-    return responseList?.map(o => ({
-        label: o.name,
-        value: o.id
-    })) || []
-}
-
-interface ForeingInputProps {
+interface ForeignInputProps<T> {
     label: string
     id: string
     formik: any
     showErrors?: boolean
-    useQueryProvider: any
+    useQueryProvider: () => {
+        data?: T[],
+        status: string,
+        CreateMutator: UseMutationResult<T, Error, T, unknown>,
+        DeleteMutator: UseMutationResult<T, Error, string | undefined, unknown>
+    },
+    valueKey?: keyof T,
+    idKey?: keyof T | 'id',
 }
 
-const ForeignInput: React.FC<ForeingInputProps> = ({
+const ForeignInput = <T,>({
     label,
     id,
     formik,
     showErrors = true,
     useQueryProvider,
+    valueKey,
+    idKey = 'id',
     ...props
-}) => {
+}: ForeignInputProps<T>) => {
 
-
+    function formatOptsList(responseList?: T[]) {
+        return responseList?.map(o => ({
+            label: o[valueKey as keyof T],
+            value: o[idKey as keyof T]
+        })) || []
+    }
     const [objName, setObjName] = useState('')
     const { data, status, CreateMutator, DeleteMutator } = useQueryProvider()
 
     const options = formatOptsList(
-        data?.filter((o: MaterialCategory) =>
-            o.name.toLowerCase().includes(objName.toLowerCase()))
+        data?.filter((o) => {
+            const fVal = o[valueKey as keyof T] as unknown as string
+            return fVal.toLowerCase().includes(objName.toLowerCase())
+        })
     ) || []
 
     const handleCreate = async (data: string) => {
-        await CreateMutator.mutateAsync({ name: data }).then((newObj: MaterialCategory) => {
-            formik.setFieldValue(id, newObj.id)
+        await CreateMutator.mutateAsync({ [valueKey as string]: data } as T).then((newObj: T) => {
+            formik.setFieldValue(id, newObj[idKey as keyof T])
         })
     }
 
@@ -71,15 +80,15 @@ const ForeignInput: React.FC<ForeingInputProps> = ({
     }
 
     const errors = formik?.errors[id] && formik?.touched[id] ? formik?.errors[id] : null
-    const value = options.find(opt => opt.value === formik?.values[id])?.label
+    const value = options.find(opt => opt.value === formik?.values[id])?.label + ''
 
     const loading = CreateMutator.isPending || DeleteMutator.isPending
 
     return (
         <>
-            <label htmlFor={id} className='text-sm pb-0.5 text-gray-800 text-end'>{label}</label>
-            <div className='relative flex'>
-                <div className='relative flex items-center justify-center max-w-64'>
+            <label htmlFor={id} >{label}</label>
+            <div className='relative flex flex-col sm:flex-row w-full'>
+                <div className='relative flex items-center justify-center w-full sm:max-w-64'>
                     <input ref={inptRef}
                         id={id}
                         name={id}
@@ -98,14 +107,14 @@ const ForeignInput: React.FC<ForeingInputProps> = ({
                         {(value) ?
                             <button type="button"
                                 onClick={() => formik?.setFieldValue(id, null)}
-                                className='btn-primary size-8 total-center'>
+                                className='btn-ghost btn-sm-square btn-rounded  size-8 total-center'>
                                 <Icons.Close size="23px" />
                             </button>
                             :
                             <button
                                 type="button"
                                 onClick={() => inptRef?.current?.focus()}
-                                className='btn-primary size-8 total-center'>
+                                className='btn-ghost btn-sm-square btn-rounded  size-8 total-center'>
                                 {showOpts ? <Icons.Up size="15px" /> : <Icons.Down size="15px" />}
                             </button>
                         }
@@ -122,13 +131,13 @@ const ForeignInput: React.FC<ForeingInputProps> = ({
                                 {/* Option */}
                                 <button
                                     className='flex-1 px-4 py-2 text-start hover:bg-gray-100'
-                                    onMouseDown={() => handleOptClick(option.value)}>
-                                    {option.label}
+                                    onMouseDown={() => handleOptClick(option.value + '')}>
+                                    {option.label + ''}
                                 </button>
                                 {/* Trash */}
                                 <button
-                                    className={`btn-primary size-8 total-center `}
-                                    onMouseDown={() => handleDelete(option.value)}>
+                                    className={`btn-ghost btn-sm-square btn-rounded  size-8 total-center `}
+                                    onMouseDown={() => handleDelete(option.value + '')}>
                                     <Icons.Trash size="15px" />
                                 </button>
                             </div>
@@ -145,7 +154,7 @@ const ForeignInput: React.FC<ForeingInputProps> = ({
                 </div>
                 }
                 {/* Errors */}
-                {(errors && !loading) && <p className='text-xs font-medium text-red-500 total-center px-2'>{errors.toString()}</p>}
+                {(errors && !loading) && <p className='text-xs font-medium text-red-500 text-start flex sm:justify-center sm:items-center sm:px-2'>{errors.toString()}</p>}
             </div >
         </>
     )

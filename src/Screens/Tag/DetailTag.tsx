@@ -76,7 +76,7 @@ export const DetailTag = () => {
                                 <TrashButton
                                     className="h-8 w-full col-span-2"
                                     message="Eliminar tag"
-                                    onPress={() => id && deleteTag()}
+                                    onPress={() => id && deleteTag(id)}
                                     confirmationNeeded
                                     confirmationMessage="¿Estás seguro de eliminar este tag?"
                                     confirmationTitle='Eliminar información'

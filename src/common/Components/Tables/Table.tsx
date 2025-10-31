@@ -15,7 +15,7 @@ const Table = <T extends { id: string }>({
    searchKeys = [unique],
    //footers = [],
    handleRowClick,
-   noDataMessage = "No se hay datos para mostrar",
+   noDataMessage = "No hay datos para mostrar",
    loadingMessage = "Cargando...",
    theme = "dark",
    loading = false,

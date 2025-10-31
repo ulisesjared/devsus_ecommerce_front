@@ -2,35 +2,26 @@ import { useMemo } from "react"
 import useGeneric from "../../../common/hooks/Generic"
 import type { Size } from "../../../common/Interfaces/SizeInterface"
 
-const useSize = ({ id, enabled = true }: { id?: string, enabled?: boolean }={}) => {
+
+const useSize = () => {
 
     const {
-        list: sizes, listStatus: sizesStatus,
-        retrieve: size, retrieveStatus: sizeStatus,
-        create: createSize, createStatus: createSizeStatus,
-        update: updateSize, updateStatus: updateSizeStatus,
-        delete: deleteSize, deleteStatus: deleteSizeStatus,
+        list: data, 
+        listStatus: status,
+        CreateMutator,
+        DeleteMutator
     } = useGeneric<Size>({
         module: 'size',
         listQueryKey: 'sizes',
-        retrieveQueryKey: 'size',
         apiUrl: 'size',
-        redirectUrl: 'size',
-        objectId: id,
-        enabled: enabled,
+        enabled: true,
     })
 
-    const SizesMap = useMemo(() => (
-        Object.fromEntries(sizes?.map(s => [s.id, s]) ?? [])
-    ), [sizes])
-
     return {
-        sizes, sizesStatus,
-        size, sizeStatus,
-        createSize, createSizeStatus,
-        updateSize, updateSizeStatus,
-        deleteSize, deleteSizeStatus,
-        SizesMap
+        data,
+        CreateMutator,
+        DeleteMutator,
+        status
     }
 }
 

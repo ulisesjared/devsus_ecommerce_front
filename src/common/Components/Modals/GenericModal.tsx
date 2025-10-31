@@ -40,7 +40,6 @@ const GenericModal: React.FC<GenericModalProps> = ({
       visible && root?.classList.add('blur-sm')
       return () => { root?.classList.remove('blur-sm') }
    }, [visible])
-
    return (<>
       {visible && (
          createPortal(

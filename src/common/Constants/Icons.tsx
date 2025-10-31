@@ -78,12 +78,13 @@ import { TbCategory as Category } from "react-icons/tb"
 import { TbRulerMeasure2 as Size} from "react-icons/tb";
 import { TbTicket as Ticket } from "react-icons/tb";
 import { TbPalette as Color} from "react-icons/tb";
-
+import {TbCopy as Copy} from "react-icons/tb";
 
 
 
 
 export const Icons = {
+   Copy,
    Color,
    Ticket,  
    Size,
