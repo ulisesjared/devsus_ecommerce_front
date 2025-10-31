@@ -77,7 +77,7 @@ export const DetailColor = () => {
                                 <TrashButton
                                     className="h-8 w-full col-span-2"
                                     message="Eliminar color"
-                                    onPress={() => id && deleteColor()}
+                                    onPress={() => id && deleteColor(id)}
                                     confirmationNeeded
                                     confirmationMessage="¿Estás seguro de eliminar este color?"
                                     confirmationTitle='Eliminar información'

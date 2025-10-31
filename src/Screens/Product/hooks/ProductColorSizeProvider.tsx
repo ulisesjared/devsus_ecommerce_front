@@ -54,7 +54,7 @@ const useProductColorSize = ({id, enabled=true}:{id?:string, enabled?:boolean})=
         }
     })
 
-    
+
 
     return({
         productColorSizes,
@@ -65,3 +65,5 @@ const useProductColorSize = ({id, enabled=true}:{id?:string, enabled?:boolean})=
         deleteProductColorSizeStatus    
     })
 }
+
+export default useProductColorSize

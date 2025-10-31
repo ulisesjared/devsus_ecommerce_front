@@ -1,7 +1,25 @@
 import { useMemo, useState} from "react"
+import useProductColorSize from "../hooks/ProductColorSizeProvider";
+import useSize from "../../Size/hooks/SizeProvider";
+import ForeignInput from "../../../common/Components/Inputs/ForeignInput";
+import { useFormik } from "formik";
+import type { Size } from "../../../common/Interfaces/SizeInterface";
 
-const SizesScreen = ({visible}:{visible:boolean}) => {
+const SizesScreen = ({visible, id}:{visible:boolean, id?:string}) => {
   if(!visible)return null
+  
+  const INIT_VALUES:Size={
+    id:'',
+    value:''
+  }
+  const {productColorSizes}=useProductColorSize({id})
+
+  const size_formik=useFormik<Size>({
+    initialValues:INIT_VALUES,
+    onSubmit:(values)=>{
+      console.log('enviado')
+    }
+  })
   
   return (
     <>
@@ -13,7 +31,14 @@ const SizesScreen = ({visible}:{visible:boolean}) => {
         <p>Acciones</p>
       </div>
       <div>
-        
+        <ForeignInput
+          label=''
+          id='sizes'
+          formik={size_formik}
+          valueKey='value'
+          idKey="id"
+          useQueryProvider={useSize}
+        />
       </div>
     </>
     

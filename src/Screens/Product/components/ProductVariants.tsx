@@ -11,7 +11,6 @@ import ColorItem from "./colorItem"
 import type { ProductColors } from "../common/constants"
 import type { ProductColor } from "../../../common/Interfaces/ProductColorInterface"
 import type { Colors } from "../common/constants"
-import ScreenTabs from '../../../common/Navigation/ScreenTabs/ScreenTabs'
 import GalleryScreen from "./GalleryScreen"
 import SizesScreen from "./SizesScreen"
 import TabsBar from "../../../ui/inputs/selectors/TabsBar"
@@ -37,15 +36,17 @@ const ProductVariants = ({ id }: { id?: string }) => {
         }
     })
 
+    // se usa para crear una lista con los id de los productColor
     const id_color = useMemo(() => (
         productColors?.map((pc: Colors) => pc.color.id)
     ), [productColors])
 
+    // lista de colores filtrados para que el usuario solo vea los que no tiene
     const colorOptions = useMemo(() => (
         colors?.filter(c => !id_color?.includes(c.id)) ?? []
     ), [colors, productColors])
 
-
+    // crea una lista de objetos con los colores seleccionados y los setea en el formik para ser enviados
     const newColors = () => {
         const newProductColors: ProductColor[] = selectedItems?.map((s) => ({ color: ColorsMap[s].id, product: id })) ?? []
         formik.setFieldValue('colors', newProductColors)
@@ -110,10 +111,10 @@ const ProductVariants = ({ id }: { id?: string }) => {
                                         key={c.id}
                                         onErrase={() => { deleteProductColor(c.id) }}
                                         onClick={() => {
-                                            if (selectedColor === c.color.id) return
-                                            setSelectedColor(c.color.id)
+                                            if (selectedColor === c.id) return
+                                            setSelectedColor(c.id)
                                         }}
-                                        focused={selectedColor === c.color.id}
+                                        focused={selectedColor === c.id}
                                     />
                                 );
                             })
@@ -141,7 +142,7 @@ const ProductVariants = ({ id }: { id?: string }) => {
                             },
                         ]}
                         />
-                        <SizesScreen visible={isSizeVisible} />
+                        <SizesScreen visible={isSizeVisible} id={selectedColor}/>
                         <GalleryScreen visible={isGalleryVisible} />
                     </div>
                 </div>
