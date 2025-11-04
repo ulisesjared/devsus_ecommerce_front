@@ -1,53 +1,44 @@
 import React, { useRef, useState } from 'react'
 import Loader from '../Loader/Loader'
+import type { Size } from '../../Interfaces/SizeInterface'
 import { Icons } from '../../Constants/Icons'
-import type { UseMutationResult } from '@tanstack/react-query'
 
-interface ForeignInputProps<T> {
+function formatOptsList(responseList: Size[]) {
+    return responseList?.map(o => ({
+        label: o.value,
+        value: o.id
+    })) || []
+}
+
+interface ForeingInputProps {
     label: string
     id: string
     formik: any
     showErrors?: boolean
-    useQueryProvider: () => {
-        data?: T[],
-        status: string,
-        CreateMutator: UseMutationResult<T, Error, T, unknown>,
-        DeleteMutator: UseMutationResult<T, Error, string | undefined, unknown>
-    },
-    valueKey?: keyof T,
-    idKey?: keyof T | 'id',
+    useQueryProvider: any
 }
 
-const ForeignInput = <T,>({
+const ForeignInput: React.FC<ForeingInputProps> = ({
     label,
     id,
     formik,
     showErrors = true,
     useQueryProvider,
-    valueKey,
-    idKey = 'id',
     ...props
-}: ForeignInputProps<T>) => {
+}) => {
 
-    function formatOptsList(responseList?: T[]) {
-        return responseList?.map(o => ({
-            label: o[valueKey as keyof T],
-            value: o[idKey as keyof T]
-        })) || []
-    }
+
     const [objName, setObjName] = useState('')
     const { data, status, CreateMutator, DeleteMutator } = useQueryProvider()
 
     const options = formatOptsList(
-        data?.filter((o) => {
-            const fVal = o[valueKey as keyof T] as unknown as string
-            return fVal.toLowerCase().includes(objName.toLowerCase())
-        })
+        data?.filter((o: Size) =>
+            o.value.toLowerCase().includes(objName.toLowerCase()))
     ) || []
 
     const handleCreate = async (data: string) => {
-        await CreateMutator.mutateAsync({ [valueKey as string]: data } as T).then((newObj: T) => {
-            formik.setFieldValue(id, newObj[idKey as keyof T])
+        await CreateMutator.mutateAsync({ value: data }).then((newObj: Size) => {
+            formik.setFieldValue(id, newObj.id)
         })
     }
 
@@ -80,7 +71,7 @@ const ForeignInput = <T,>({
     }
 
     const errors = formik?.errors[id] && formik?.touched[id] ? formik?.errors[id] : null
-    const value = options.find(opt => opt.value === formik?.values[id])?.label + ''
+    const value = options.find(opt => opt.value === formik?.values[id])?.label
 
     const loading = CreateMutator.isPending || DeleteMutator.isPending
 
@@ -131,13 +122,13 @@ const ForeignInput = <T,>({
                                 {/* Option */}
                                 <button
                                     className='flex-1 px-4 py-2 text-start hover:bg-gray-100'
-                                    onMouseDown={() => handleOptClick(option.value + '')}>
-                                    {option.label + ''}
+                                    onMouseDown={() => handleOptClick(option.value)}>
+                                    {option.label}
                                 </button>
                                 {/* Trash */}
                                 <button
                                     className={`btn-ghost btn-sm-square btn-rounded  size-8 total-center `}
-                                    onMouseDown={() => handleDelete(option.value + '')}>
+                                    onMouseDown={() => handleDelete(option.value)}>
                                     <Icons.Trash size="15px" />
                                 </button>
                             </div>

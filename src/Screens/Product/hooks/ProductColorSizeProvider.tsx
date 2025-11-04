@@ -4,7 +4,7 @@ import { getErrorMessage } from "../../../common/Constants/functions"
 import { useToast } from "../../../common/hooks/ToastProvider"
 import type { ProductColorSize } from "../../../common/Interfaces/IProductColorSize";
 
-const useProductColorSize = ({id, enabled=true}:{id?:string, enabled?:boolean})=>{
+const useProductColorSize = ({id, enabled=true}:{id?:string, enabled?:boolean}={})=>{
     const { notify } = useToast()
     const qc = useQueryClient()
 

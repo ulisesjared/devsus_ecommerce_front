@@ -7,15 +7,16 @@ import type { Size } from "../../../common/Interfaces/SizeInterface";
 
 const SizesScreen = ({visible, id}:{visible:boolean, id?:string}) => {
   if(!visible)return null
-  
+  const {productColorSizes} = useProductColorSize({id});
+
   const INIT_VALUES:Size={
     id:'',
     value:''
   }
-  const {productColorSizes}=useProductColorSize({id})
-
+  //const {data} = useSize(productColorSizes)
   const size_formik=useFormik<Size>({
     initialValues:INIT_VALUES,
+    enableReinitialize: true,
     onSubmit:(values)=>{
       console.log('enviado')
     }
@@ -29,17 +30,16 @@ const SizesScreen = ({visible, id}:{visible:boolean, id?:string}) => {
         <p>Stock</p>
         <p>Descuento</p>
         <p>Acciones</p>
+        <div>
+          <ForeignInput
+            label=''
+            id='id'
+            formik={size_formik}
+            useQueryProvider={useSize}
+          />
+        </div>
       </div>
-      <div>
-        <ForeignInput
-          label=''
-          id='sizes'
-          formik={size_formik}
-          valueKey='value'
-          idKey="id"
-          useQueryProvider={useSize}
-        />
-      </div>
+     
     </>
     
   );
