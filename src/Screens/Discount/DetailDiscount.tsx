@@ -121,7 +121,7 @@ export const DetailDiscount = () => {
                                 <TrashButton
                                     className="h-8 w-full col-span-2"
                                     message="Eliminar descuento"
-                                    onPress={() => id && deleteDiscount()}
+                                    onPress={() => id && deleteDiscount(id)}
                                     confirmationNeeded
                                     confirmationMessage="¿Estás seguro de eliminar este descuento?"
                                     confirmationTitle='Eliminar información'

@@ -2,7 +2,8 @@ import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query"
 import { myAxios } from "../../../common/hooks/useAxios"
 import { getErrorMessage } from "../../../common/Constants/functions"
 import { useToast } from "../../../common/hooks/ToastProvider"
-import type { ProductColorSize } from "../../../common/Interfaces/IProductColorSize";
+import type { Sizes } from "../common/constants"
+import type { ProductColorSize } from "../../../common/Interfaces/IProductColorSize"
 
 const useProductColorSize = ({id, enabled=true}:{id?:string, enabled?:boolean}={})=>{
     const { notify } = useToast()
@@ -24,19 +25,19 @@ const useProductColorSize = ({id, enabled=true}:{id?:string, enabled?:boolean}={
         mutate: createProductColorSize,
         status: createProductColorSizeStatus
     } = useMutation({
-        mutationFn: async (data: ProductColorSize[]) => {
-            const res = await myAxios.post(`/product_color/`, data)
+        mutationFn: async (data: Sizes) => {
+            const res = await myAxios.post(`/product_color/${id}/update_sizes/`, data)
             return res.data
         },
         onSuccess: () => {
             qc.invalidateQueries({queryKey: ['product_color_size',id], exact:true})
-            notify(`Talla agregada con éxito`)
+            notify(`Los cambios han sido guardados`)
         },
         onError: (error) => {
             notify(getErrorMessage(error), true)
         }
     })
-
+    
     const {
         mutate:deleteProductColorSize,
         status:deleteProductColorSizeStatus

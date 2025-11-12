@@ -60,7 +60,7 @@ const TicketDocument: React.FC<ITicketDocument> = ({ data }) => {
                 <View style={{ display: 'flex', flexDirection: 'column', width: '100%', alignItems: 'center' }}>
                     {/* Header */}
                     <View style={styles.header}>
-                        <Text style={styles.title}>Lacteos Lyly</Text>
+                        <Text style={styles.title}>E-commerce</Text>
                         <View style={styles.subtitleWrap}>
                             <Text style={styles.subtitle}>Ticket de Venta</Text>
                             <Text style={styles.subtitle}>{data.id}</Text>

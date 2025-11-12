@@ -6,7 +6,7 @@ import { useToast } from "../../../common/hooks/ToastProvider"
 import type { ProductColor } from "../../../common/Interfaces/ProductColorInterface";
 
 
-const useProductColor = ({ id, enabled = true }: {id?:string, enabled?: boolean }={}) => {
+const useProductColor = ({ id, idProductColor, enabled = true }: {id?:string, idProductColor?:string ,enabled?: boolean }={}) => {
 
     const { notify } = useToast()
     const qc = useQueryClient()
@@ -45,13 +45,13 @@ const useProductColor = ({ id, enabled = true }: {id?:string, enabled?: boolean 
         status: updateProductColorsStatus
     } = useMutation({
         mutationFn: async (data: Partial<ProductColor>) => {
-            const res = await myAxios.patch(`/product/${id}/admin_variants/`, data)
+            const res = await myAxios.patch(`/product_color/${idProductColor}/`, data)
             return res.data
         },
         onSuccess: () => {
-            qc.invalidateQueries({queryKey: ['product_colors',id], exact:true})
+            qc.invalidateQueries({queryKey: ['product_colors', id], exact:true})
             qc.invalidateQueries({queryKey: ['products'], exact:true})
-            notify(`Registro de producto editado con éxito`)
+            notify(`Actualización exitosa`)
         },
         onError: (error) => {
             notify(getErrorMessage(error), true)

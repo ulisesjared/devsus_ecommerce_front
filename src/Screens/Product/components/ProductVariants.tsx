@@ -2,7 +2,7 @@ import Button from "../../../common/Components/Buttons/Button"
 import { Icons } from "../../../common/Constants/Icons"
 import SelectTable from '../../../common/Components/Tables/SelectTable'
 import GenericModal from '../../../common/Components/Modals/GenericModal'
-import { useMemo, useState } from "react"
+import { useEffect, useMemo, useState } from "react"
 import useColor from "../../Color/hooks/ColorProvider"
 import { validationSchemaColors, INIT_VALUES_COLORS } from '../common/constants'
 import useProductColor from "../hooks/ProductColorsProvider"
@@ -53,6 +53,10 @@ const ProductVariants = ({ id }: { id?: string }) => {
         formik.handleSubmit()
     }
 
+    const currentProductColor = useMemo(() => (
+        productColors?.find(pc => pc.id === selectedColor)
+    ), [productColors, selectedColor]);
+
     return (
         <div className="flex flex-1 p-2 gap-2 bg-white rounded-b-md shadow-md">
             <div className="w-60 flex flex-col gap-2 h-full">
@@ -61,8 +65,9 @@ const ProductVariants = ({ id }: { id?: string }) => {
                     visible={showModal}
                     title="Nuevo Color"
                     content={
-                        <div className='flex flex-1 py-2' >
+                        <div className='flex flex-1 py-2'>
                             <SelectTable theme='light'
+                                searchKeys={['name']}
                                 columns={[
                                     { label: "Nombre", atr: "name", Component: (data) => <p className="w-full total-center">{data.data}</p> },
                                     {
@@ -123,7 +128,7 @@ const ProductVariants = ({ id }: { id?: string }) => {
                 </div>
             </div>
             {
-                selectedColor && <div className="flex-1 bg-rose-200">
+                selectedColor && <div className="flex-1 bg-gray-200 flex flex-col">
                     <div className='sm:col-span-2'>
                         <TabsBar tabs={[
                             {
@@ -135,16 +140,20 @@ const ProductVariants = ({ id }: { id?: string }) => {
                             },
                             {
                                 value: 'GalleryScreen',
-                                label: 'Galleria', onClick: () => {
+                                label: 'Galeria', onClick: () => {
                                     setIsSizeVisible(false);
                                     setIsGalleryVisible(true)
                                 }, isSelected: true
                             },
                         ]}
                         />
-                        <SizesScreen visible={isSizeVisible} id={selectedColor}/>
-                        <GalleryScreen visible={isGalleryVisible} />
+                        
                     </div>
+                    <SizesScreen visible={isSizeVisible} id={selectedColor}/>
+                    <GalleryScreen 
+                        visible={isGalleryVisible} 
+                        idProductColor={selectedColor} 
+                    />
                 </div>
             }
         </div>

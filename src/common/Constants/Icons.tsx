@@ -34,6 +34,7 @@ import {
 
 import {
    TbLayoutSidebarLeftCollapse as CloseSideBar,
+   TbPhotoOff as PhotoOff,
    TbLayoutSidebarLeftExpand as OpenSideBar,
    TbUser as Person,
    TbEdit as Edit,
@@ -51,7 +52,6 @@ import {
    TbKey as Key,
    TbPlayerPlay as Play,
    TbChartBar as ChartBar,
-   TbPhotoOff as PhotoOff,
    TbMenu2 as Menu,
    TbChevronsLeft as BackResponsive,
    TbTrash as Trash,
@@ -78,12 +78,12 @@ import { TbCategory as Category } from "react-icons/tb"
 import { TbRulerMeasure2 as Size} from "react-icons/tb";
 import { TbTicket as Ticket } from "react-icons/tb";
 import { TbPalette as Color} from "react-icons/tb";
-import {TbCopy as Copy} from "react-icons/tb";
-
+import {TbCopy as Copy, TbPhotoPlus as PhotoPlus} from "react-icons/tb";
 
 
 
 export const Icons = {
+   PhotoPlus,
    Copy,
    Color,
    Ticket,  

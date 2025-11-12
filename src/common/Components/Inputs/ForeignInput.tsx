@@ -2,6 +2,7 @@ import React, { useRef, useState } from 'react'
 import Loader from '../Loader/Loader'
 import type { Size } from '../../Interfaces/SizeInterface'
 import { Icons } from '../../Constants/Icons'
+import { getIn } from 'formik'
 
 function formatOptsList(responseList: Size[]) {
     return responseList?.map(o => ({
@@ -11,7 +12,7 @@ function formatOptsList(responseList: Size[]) {
 }
 
 interface ForeingInputProps {
-    label: string
+    label: string,
     id: string
     formik: any
     showErrors?: boolean
@@ -62,6 +63,7 @@ const ForeignInput: React.FC<ForeingInputProps> = ({
 
     const handleOptClick = (opt: string) => {
         formik?.setFieldValue(id, opt)
+        console.log(formik.values.sizes)
     }
 
     const handleBlur = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -69,10 +71,11 @@ const ForeignInput: React.FC<ForeingInputProps> = ({
         setObjName('')
         formik?.handleBlur(e)
     }
-
+    
     const errors = formik?.errors[id] && formik?.touched[id] ? formik?.errors[id] : null
-    const value = options.find(opt => opt.value === formik?.values[id])?.label
-
+    const value = options.find(opt => opt.value === getIn(formik?.values, id))?.label // se usa getIn en lugar de formik.values.id directamente
+    
+    
     const loading = CreateMutator.isPending || DeleteMutator.isPending
 
     return (

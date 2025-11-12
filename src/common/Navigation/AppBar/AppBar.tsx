@@ -116,7 +116,7 @@ const AppBar: FC<{
                <div className='py-2 total-center gap-2'>
                   <div className="relative flex-grow total-center">
                      <div className="absolute app-bar-tab-text font-bold text-blue-900">
-                        Lacteos Lyly
+                        E-commerce
                      </div>
                   </div>
                   <Button className="w-8 h-10 pt-2 md:size-8 mr-4" onClick={toggleOpen} needsConfirmation={false} tooltip={isOpen ? 'Cerrar barra lateral' : 'Abrir barra lateral'}>
